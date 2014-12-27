@@ -31,6 +31,13 @@ def sort_and_count(s1,s2):
         j += 1
     return True
 
+    
+# Mtd 3: Python 'in' Method:
+def whether_in(s1,s3):
+    for i in range(len(s2)):
+        if s2[i] not in s1:
+            return False
+    return True
 
 s1 = 'stringlist'
 s2 = 'listrr1'
