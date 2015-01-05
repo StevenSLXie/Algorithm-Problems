@@ -162,5 +162,19 @@ print reduce(lambda a,x:a+x.count('Sam'),sentences,0)
 这里的初始值就是必须的。不然，sentences的第一个元素甚至都不是一个“次数”的量，而是字符串，那么当它和后面的整数相加时就会出错（即使不出错，结果也没有意义）。
 
 <h4>混合使用</h4>
-****
-<h4></h4>
+
+**例8** 求`array=[14,7,26,19,25,74,33,10,35,28]`中能被7整除的数的立方和。
+
+很显然，我们要过滤掉不是7的倍数的那些数，于是我们要用filter，然后我们要求和，要用到reduce。
+
+```python
+print reduce(lambda a,x:a+x**3,filter(lambda x:x%7==0,array),0)
+```
+
+map和filter也同样可以结合起来用。
+
+**例9** 返回1-100的数中不能被2和13整除的数的平方。
+
+```python
+print map(lambda x:x*x,filter(lambda x:x%2!=0 and x%13!=0,range(1,101)))
+```
