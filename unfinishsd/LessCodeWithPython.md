@@ -98,6 +98,81 @@ print [i for i in s if i.count('Hi')]
 也是非常简洁。如果用普通的for循环，虽然也是简单，但可能就要多写几行了。
 
 <h4>3. reduce</h4>
+`reduce(func,seq)`则是对seq中的每个元素进行func操作，最后返回一个值。
+
+**例4** 求`array=[7,9,13,4,5]`所有元素的乘积。
+
+```python
+array=[7,9,13,4,5]
+print reduce(lambda x,y:x*y,array)
+```
+
+这里的lambda函数有两个参数x和y，reduce会先将array里面的头两个数分别作为x和y，求它们的乘积，然后把它的结果和第三个相乘，再把结果和第四个相乘，直到最后一个元素。
+
+**例5** 找出`array=[7,9,13,4,5]`中的最大值。
+
+```python
+array=[7,9,13,4,5]
+print reduce(lambda a,b:a if a>b else b,array)
+```
+
+这和built-in的`max`是一样的。甚至你也可以这样：
+```
+print reduce(max,array)
+```
+
+当然这是多此一举了。
+
+**例6** 求`array=[100,2,3,4,5]`的平方和。
+
+估算一下结果应该是一万多，但如果你是这样写的：
+
+```python
+array=[100,2,3,4,5]
+print reduce(lambda x,y:x**2+y**2,array)
+```
+
+会发现输出一个天文数字：`100320484445070891742619928410906`。
+
+为什么？这里要注意，reduce总是先取前两个数，然后再将结果和第三个的平方相乘，也就是类似这样`square(square(suqare(x1,x2),x3),x4)`。所以上面的结果是不断把之前的结果平方，所以自然结果就很大。
+
+所以正确的写法可能是下面这样？
+
+```python
+array=[100,2,3,4,5]
+print reduce(lambda x,y:x+y**2,array)
+```
+但你会发现，结果是154，不是一万多。很显然，后面的平方和是正常的，但第一个数没有变平方，而是只把它自己本身加进去了。
+所以为了避免这种情况，reduce允许你传入第三个参数，设定初始值，像下面这样：
+```python
+array=[100,2,3,4,5]
+print reduce(lambda x,y:x+y**2,array,0)
+```
+
+这样第一次的时候，reduce会取`0+100^2`，然后再把结果和`2^2`加起来，一直到最后一个元素。这样结果就正确了。这里的初始值其实相当于在数组最前面加一个冗余的值，而假如你把初始值设为1，就等于你在计算array各个元素的平方和+1了。
+
+**例7** 统计sentences中Sam出现的总次数。
+(此题来自Mary Rose Cook的[A practical introduction to functional progarmming](http://maryrosecook.com/blog/post/a-practical-introduction-to-functional-programming))
+
+```python
+sentences = ['Mary read a story to Sam and Isla.',
+             'Isla cuddled Sam.',
+             'Sam chortled.']
+```
+
+```python
+print reduce(lambda a,x:a+x.count('Sam'),sentences,0)
+```
+
+这里的初始值就是必须的。不然，sentences的第一个元素甚至都不是一个“次数”的量，而是字符串，那么当它和后面的整数相加时就会出错（即使不出错，结果也没有意义）。
+
+
+
+
+
+
+
+
 
 <h4></h4>
 <h4></h4>
