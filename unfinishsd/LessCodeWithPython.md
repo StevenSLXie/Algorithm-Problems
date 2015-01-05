@@ -1,4 +1,7 @@
-**摘要**：熟练掌握Python的map、filter、 reduce、 lambda以及list comprehension的用法，可以让你写出高效率的代码。
+Python的map/filter/reduce
+================
+
+**摘要**：熟练掌握Python的map、filter、 reduce、 lambda以及list comprehension的用法，可以让你写出简洁的代码。
 
 <h4>1. map</h4>
 
@@ -73,16 +76,14 @@ filter顾名思义，是对一个sequence中的每一个元素进行过滤，返
 **例2** 返回array中的所有奇数。
 
 ```python
-array = [1,3,5,7,9,12,14,33,35]
 print filter(lambda x:x%2, array)
 ```
 
 这里是对2取余，返回结果为True的元素。那么什么情况下结果为True？Python里面不为`0`，`None`或者`null`都是True。所以结果就是，偶数是False，奇数是True，返回所有奇数。
 
-**例3** 返回含有'Hi'的字符串。
+**例3** 返回`s = ['Hi Steven!','Hi David','How are you?']`中含有'Hi'的字符串。
 
 ```python
-s = ['Hi Steven!','Hi David','How are you?']
 print filter(lambda x:x.count('Hi'),s)
 ```
 
@@ -91,7 +92,6 @@ count计算'Hi'的出现次数，只要不是0的都会返回。
 filter的功能也可以用list comprehension来实现。
 
 ```python
-s = ['Hi Steven!','Hi David','How are you?']
 print [i for i in s if i.count('Hi')]
 ```
 
@@ -103,7 +103,6 @@ print [i for i in s if i.count('Hi')]
 **例4** 求`array=[7,9,13,4,5]`所有元素的乘积。
 
 ```python
-array=[7,9,13,4,5]
 print reduce(lambda x,y:x*y,array)
 ```
 
@@ -112,12 +111,11 @@ print reduce(lambda x,y:x*y,array)
 **例5** 找出`array=[7,9,13,4,5]`中的最大值。
 
 ```python
-array=[7,9,13,4,5]
 print reduce(lambda a,b:a if a>b else b,array)
 ```
 
 这和built-in的`max`是一样的。甚至你也可以这样：
-```
+```python
 print reduce(max,array)
 ```
 
@@ -128,7 +126,6 @@ print reduce(max,array)
 估算一下结果应该是一万多，但如果你是这样写的：
 
 ```python
-array=[100,2,3,4,5]
 print reduce(lambda x,y:x**2+y**2,array)
 ```
 
@@ -139,13 +136,11 @@ print reduce(lambda x,y:x**2+y**2,array)
 所以正确的写法可能是下面这样？
 
 ```python
-array=[100,2,3,4,5]
 print reduce(lambda x,y:x+y**2,array)
 ```
 但你会发现，结果是154，不是一万多。很显然，后面的平方和是正常的，但第一个数没有变平方，而是只把它自己本身加进去了。
 所以为了避免这种情况，reduce允许你传入第三个参数，设定初始值，像下面这样：
 ```python
-array=[100,2,3,4,5]
 print reduce(lambda x,y:x+y**2,array,0)
 ```
 
@@ -166,13 +161,6 @@ print reduce(lambda a,x:a+x.count('Sam'),sentences,0)
 
 这里的初始值就是必须的。不然，sentences的第一个元素甚至都不是一个“次数”的量，而是字符串，那么当它和后面的整数相加时就会出错（即使不出错，结果也没有意义）。
 
-
-
-
-
-
-
-
-
-<h4></h4>
+<h4>混合使用</h4>
+****
 <h4></h4>
